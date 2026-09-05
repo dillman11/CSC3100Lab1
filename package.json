@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "oxlint",
-    "preview": "vite preview",
+    "dev": "npm run dev --workspace=react-frontend",
+    "build": "npm run build --workspace=react-frontend",
+    "lint": "npm run lint --workspace=react-frontend",
+    "preview": "npm run preview --workspace=react-frontend",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
