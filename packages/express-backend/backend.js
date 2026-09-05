@@ -26,11 +26,6 @@ const users = {
       id: "yat999",
       name: "Dee",
       job: "Aspring actress"
-    },
-    {
-      id: "zap555",
-      name: "Dennis",
-      job: "Bartender"
     }
   ]
 };
@@ -50,7 +45,6 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
-
 
 //GET Query
 app.get("/users", (req, res) => {
@@ -77,26 +71,42 @@ app.get("/users/:id", (req, res) => {
     }
 })
 
+
+//Add user in backend
+const generateId = () => Math.random().toString(36).slice(2, 8);
+
 const addUser = (user) => {
-    users["users_list"].push(user);
-    return user;
+    const newUser = { id : generateId(), ...user }
+    users["users_list"].push(newUser);
+    return newUser;
 };
 
 app.post("/users", (req, res) => {
     const userToAdd = req.body;
-    addUser(userToAdd);
-    res.send();
+    const newUser = addUser(userToAdd);
+    res.status(201).send(newUser);
 })
 
-const removeUser = (user) => {
-    users["users_list"].pop(user);
-    return user;
-};
 
-app.delete("/users/:job", (req, res) => {
-    const deleteUser = req.body;
-    removeUser(deleteUser);
-    res.send();
+//Delete a user in backend
+const deleteUserById = (id) => {
+    const origLength = users["users_list"].length
+    const newUsers = users["users_list"].filter((user) => {
+        return user["id"] !== id;
+    })
+    users["users_list"] = newUsers;
+    return origLength !== users["users_list"].length;
+}
+
+app.delete("/users/:id", (req, res) => {
+    const id = req.params.id;
+    const deleted = deleteUserById(id);
+    if (deleted) {
+      res.status(200).send();
+    } else {
+      res.status(404).send("Resource not found");
+    }
+
 })
 
 app.listen(port, () => {
