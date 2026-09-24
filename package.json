@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run dev --workspace=react-frontend",
+    "dev": "concurrently \"npm run dev --workspace=react-frontend\" \"npm run dev --workspace=express-backend\"",
     "build": "npm run build --workspace=react-frontend",
     "lint": "npm run lint --workspace=react-frontend",
     "preview": "npm run preview --workspace=react-frontend",
@@ -16,12 +16,10 @@
     "packages/*"
   ],
   "devDependencies": {
+    "concurrently": "^10.0.5",
     "nodemon": "^3.1.14"
-<<<<<<< HEAD
   },
   "dependencies": {
     "cors": "^2.8.6"
-=======
->>>>>>> backend
   }
 }

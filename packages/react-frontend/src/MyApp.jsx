@@ -44,7 +44,7 @@ function MyApp() {
   function updateList(person) {
     postUser(person)
       .then((res) => {
-        if (res.status === 201) {
+        if (res.status === 200) {
           return res.json().then((newUser) => {
             setCharacters([...characters, newUser]);
           });
@@ -72,7 +72,7 @@ function MyApp() {
           if (response.status === 200) {
             setCharacters((prevCharacters) => 
               prevCharacters.filter((character) => {
-                return character["id"] !== id
+                return character["_id"] !== id
             }));
           } else {
             console.log("Deletion failed: status:", response.status);
